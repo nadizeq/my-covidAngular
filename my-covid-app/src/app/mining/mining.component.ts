@@ -17,7 +17,7 @@ export class MiningComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  mining: string = "";
+  mining: string = "hello";
 
   public getBasicMining(): any {
     this.httpClient.get(`http://localhost:8091/covid/mining/my`, { responseType: 'text' })
