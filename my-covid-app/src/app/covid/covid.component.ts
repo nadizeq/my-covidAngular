@@ -26,6 +26,8 @@ export class CovidComponent implements OnInit {
 
   public updateDesc: any;
 
+  public postDesc: any;
+
   constructor(
     private httpClient: HttpClient,
     public covidApiService: CovidApiService,
@@ -36,6 +38,7 @@ export class CovidComponent implements OnInit {
   ngOnInit(): void {
     this.descObject = {};
     this.updateDesc = {};
+    this.postDesc = {};
     this.getCovid();
     this.getCovidDesc();
 
@@ -119,4 +122,33 @@ export class CovidComponent implements OnInit {
         this.getCovidDesc();
       });
   }
+
+  addPost() {
+
+    this.covidApiService.putDesc(this.postDesc).then(
+      resolve => {
+        this.getCovidDesc();
+      });
+    
+    // if the method below being called using async way, 
+    //then the table desc wont be updated accordingly 
+    //after data added with line 128 only
+    //this.getCovidDesc();
+  }
+
+  //delete
+  deleteDescription(){
+
+    if (this.covidTotalDesc.length == 0) {
+      this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
+    }
+    else {
+      this.covidApiService.DeleteDescription(this.descObject.description).then(
+        resolve => {
+          this.getCovidDesc();
+        });
+    }
+
+  }
+  
 }

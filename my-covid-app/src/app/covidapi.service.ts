@@ -8,6 +8,8 @@ import { GlobalMethods } from 'src/environments/GlobalMethods';
   providedIn: 'root'
 })
 export class CovidApiService {
+  //comment line below if got error
+  public descObject: any;
 
   constructor(private httpClient: HttpClient, private confirmationDialogService: ConfirmationDialogService) { }
 
@@ -72,4 +74,41 @@ export class CovidApiService {
 
     });
   }
+
+  public addPost(body: any) {
+    //body.description = body.desc;
+    return new Promise((resolve) => {
+      return this.httpClient.delete(`http://localhost:8081/covid/post`).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+
+  public DeleteDescription(description: string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.delete(`http://localhost:8081/covid/deletesoap?desc=` + description).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+  
 }

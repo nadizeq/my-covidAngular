@@ -64,4 +64,33 @@
   </form>
   <!-- Put record Ends  -->
 
+  <!-- Post record starts  -->
+  <br><br><br>
+  <legend style="color:black;font-weight:bold;">Section D. Add Post Record</legend>
+
+  <label for="Description">Description</label>
+  <input type="text" id="postDesc" [(ngModel)]="postDesc.description" name="post">
+  <p></p>
+
+  <input type="submit" value="Post" (click)="addPost()">
+  <!-- Post record starts  -->
+
+
+  <!-- Delete record by description starts  -->
+
+  <br><br><br>
+  <legend style="color:black;font-weight:bold;">Section E. Delete with Condition</legend>
+
+  <form>
+    <div *ngIf="descObject != undefined" class="form-group">
+      <label>Description</label>
+      <input type="text" id="desc" [(ngModel)]="descObject.description" name="desc">
+      <p></p>
+      <input type="submit" value="Delete with condition" (click)="deleteDescription()">
+    </div>
+  </form>
+
+  <!-- Delete record by description ends  -->
+
+
 </div>

@@ -12,6 +12,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
 import { HelloComponent } from './hello/hello.component';
 import { MiningComponent } from './mining/mining.component';
+import { BonusComponent } from './bonus/bonus.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MiningComponent } from './mining/mining.component';
     HomeComponent,
     ConfirmationDialogComponent,
     HelloComponent,
-    MiningComponent
+    MiningComponent,
+    BonusComponent
   ],
   imports: [
     FormsModule,
