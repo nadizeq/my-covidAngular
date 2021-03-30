@@ -35,6 +35,16 @@ export class CovidComponent implements OnInit {
 
   ) { }
 
+  //url link
+  private getCovidLatestCaseNumberUrl="http://localhost:8081/covid/get/latest";
+  private getCovidDescUrl="http://localhost:8081/covid/get/desc";
+  private deleteUrl = "http://localhost:8081/covid/delete?id=";
+  private addUrl="http://localhost:8081/covid/add?desc=";
+  private putDescUrl="http://localhost:8081/covid/put";
+  private addPostUrl="http://localhost:8081/covid/post";
+  private deleteDescriptionUrl="http://localhost:8081/covid/deletesoap?desc=";
+
+
   ngOnInit(): void {
     this.descObject = {};
     this.updateDesc = {};
@@ -47,7 +57,7 @@ export class CovidComponent implements OnInit {
   }
 
   getCovid(): any {
-    this.covidTotalDaily = this.covidApiService.getCovid().subscribe((data: any) => {
+    this.covidTotalDaily = this.covidApiService.getCovid(this.getCovidLatestCaseNumberUrl).subscribe((data: any) => {
       console.log(data); this.covidTotalDaily = data;
     }
       ,
@@ -62,7 +72,7 @@ export class CovidComponent implements OnInit {
 
   //retrieve data in table trx_covid_case_bonus 
   getCovidDesc(): any {
-    this.covidApiService.getCovidDesc().subscribe((data: any) => {
+    this.covidApiService.getCovidDesc(this.getCovidDescUrl).subscribe((data: any) => {
       console.log(data);
       this.covidTotalDesc = data;
       console.log("Total of Description Column Rows --->" + this.covidTotalDesc.length);
@@ -84,12 +94,12 @@ export class CovidComponent implements OnInit {
   //delete a record from trx_covid_case
   deleteDesc() {
     console.log("covidTotalDesc length-->" + this.covidTotalDesc.length);
-
+    
     if (this.covidTotalDesc.length == 0) {
       this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
     }
     else {
-      this.covidApiService.deleteDesc(this.descObject.id).then(
+      this.covidApiService.deleteDesc(this.descObject.id, this.deleteUrl).then(
         resolve => {
           this.getCovidDesc();
         });
@@ -98,7 +108,7 @@ export class CovidComponent implements OnInit {
 
   //add function into the table
   addDesc() {
-    this.covidApiService.addDesc(this.newDesc).then(
+    this.covidApiService.addDesc(this.newDesc,this.addUrl).then(
       resolve => {
         this.getCovidDesc();
       });
@@ -119,7 +129,7 @@ export class CovidComponent implements OnInit {
 
   putDesc() {
 
-    this.covidApiService.putDesc(this.updateDesc).then(
+    this.covidApiService.putDesc(this.updateDesc,this.putDescUrl).then(
       resolve => {
         this.getCovidDesc();
       });
@@ -127,7 +137,7 @@ export class CovidComponent implements OnInit {
 
   addPost() {
 
-    this.covidApiService.addPost(this.postDesc).then(
+    this.covidApiService.addPost(this.postDesc,this.addPostUrl).then(
       resolve => {
         this.getCovidDesc();
       });
@@ -140,7 +150,7 @@ export class CovidComponent implements OnInit {
       this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
     }
     else {
-      this.covidApiService.deleteDescription(this.descObject.description).then(
+      this.covidApiService.deleteDescription(this.descObject.description,this.deleteDescriptionUrl).then(
         resolve => {
           this.getCovidDesc();
         });

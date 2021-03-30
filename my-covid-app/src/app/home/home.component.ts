@@ -31,14 +31,20 @@ export class HomeComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService
 
   ) { }
+  
+  //url link
+  private getCovidLatestCaseNumberUrl="http://localhost:8081/covid/get/latest";
+  private getCovidDescUrl="http://localhost:8081/covid/get/desc";
 
+  
+  //
   async ngOnInit(): Promise<void> {
     this.descObject = {};
     this.updateDesc = {};
     this.postDesc = {};
     this.getCovid();
     this.getCovidDesc();
-    await this.covidApiService.getCovidDesc().toPromise().then((data:any)=>{
+    await this.covidApiService.getCovidDesc(this.getCovidDescUrl).toPromise().then((data:any)=>{
       this.descObject=data;
     });
     
@@ -47,7 +53,7 @@ export class HomeComponent implements OnInit {
     }
 
     getCovid(): any {
-      this.covidTotalDaily = this.covidApiService.getCovid().subscribe((data: any) => {
+      this.covidTotalDaily = this.covidApiService.getCovid(this.getCovidLatestCaseNumberUrl).subscribe((data: any) => {
         console.log(data); this.covidTotalDaily = data;
       }
         ,
@@ -62,7 +68,7 @@ export class HomeComponent implements OnInit {
   
     //retrieve data in table trx_covid_case_bonus 
     getCovidDesc(): any {
-      this.covidApiService.getCovidDesc().subscribe((data: any) => {
+      this.covidApiService.getCovidDesc(this.getCovidDescUrl).subscribe((data: any) => {
         console.log(data);
         this.covidTotalDesc = data;
       });

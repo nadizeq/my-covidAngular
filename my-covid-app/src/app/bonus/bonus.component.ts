@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
 import { GlobalMethods } from 'src/environments/GlobalMethods';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
-import { CovidApiServiceBonus } from '../covidapibonus.service';
+import { CovidApiService } from '../covidapi.service';
 
 @Component({
   selector: 'app-bonus',
@@ -28,9 +28,18 @@ export class BonusComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    public covidApiServiceBonus: CovidApiServiceBonus,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    public covidApiService: CovidApiService,
   ) { }
+  
+  //link
+  private getCovidLatestCaseNumberUrl="http://localhost:8081/covid/get/latest";
+  private getCovidBonusUrl="http://localhost:8081/covid/get/bonus";
+  private addBonusUrl="http://localhost:8081/covid/add/bonus?desc=";
+  private putDescBonusUrl="http://localhost:8081/covid/put/bonus";
+  private deleteDescBonusUrl="http://localhost:8081/covid/delete/bonus?id=";
+  private addPostBonusUrl="http://localhost:8081/covid/post/bonus";
+  private deleteDescriptionBonusUrl="http://localhost:8081/covid/deletesoap/bonus?desc=";
 
   ngOnInit(): void {
 
@@ -46,7 +55,7 @@ export class BonusComponent implements OnInit {
 
   //display daily covid case
   getCovid(): any {
-    this.covidTotalDaily = this.covidApiServiceBonus.getCovid().subscribe((data: any) => {
+    this.covidTotalDaily = this.covidApiService.getCovid(this.getCovidLatestCaseNumberUrl).subscribe((data: any) => {
       console.log(data); this.covidTotalDaily = data;
     }
       ,
@@ -60,7 +69,7 @@ export class BonusComponent implements OnInit {
   }
   //retrieve data in table trx_covid_case_bonus 
   getCovidBonus(): any {
-    this.covidApiServiceBonus.getCovidBonus().subscribe((data: any) => {
+    this.covidApiService.getCovidBonus(this.getCovidBonusUrl).subscribe((data: any) => {
       console.log(data);
       this.covidTotalDescBonus = data;
     });
@@ -80,7 +89,7 @@ export class BonusComponent implements OnInit {
 
     //add function into the table
     addBonus() {
-      this.covidApiServiceBonus.addBonus(this.newDescBonus).then(
+      this.covidApiService.addBonus(this.newDescBonus,this.addBonusUrl).then(
         resolve => {
           this.getCovidBonus();
         });
@@ -103,7 +112,7 @@ export class BonusComponent implements OnInit {
     //add code below
     putDescBonus(){
 
-      this.covidApiServiceBonus.putDescBonus(this.updateDescBonus).then(
+      this.covidApiService.putDescBonus(this.updateDescBonus,this.putDescBonusUrl).then(
       resolve => {
         this.getCovidBonus();
       });
@@ -119,7 +128,7 @@ export class BonusComponent implements OnInit {
       this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
       }
       else {
-        this.covidApiServiceBonus.deleteDescBonus(this.descObjectBonus.id).then(
+        this.covidApiService.deleteDescBonus(this.descObjectBonus.id,this.deleteDescBonusUrl).then(
         resolve => {
           this.getCovidBonus();
       });
@@ -127,7 +136,7 @@ export class BonusComponent implements OnInit {
   }
 
   addPostBonus(){
-    this.covidApiServiceBonus.addPostBonus(this.postDescBonus).then(
+    this.covidApiService.addPostBonus(this.postDescBonus,this.addPostBonusUrl).then(
       resolve => {
         this.getCovidBonus();
       });
@@ -140,7 +149,7 @@ export class BonusComponent implements OnInit {
       this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
     }
     else {
-      this.covidApiServiceBonus.deleteDescriptionBonus(this.descObjectBonus.description).then(
+      this.covidApiService.deleteDescriptionBonus(this.descObjectBonus.description,this.deleteDescriptionBonusUrl).then(
         resolve => {
           this.getCovidBonus();
         });

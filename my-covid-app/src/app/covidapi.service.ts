@@ -13,18 +13,18 @@ export class CovidApiService {
 
   constructor(private httpClient: HttpClient, private confirmationDialogService: ConfirmationDialogService) { }
 
-  public getCovid(): any {
-    return this.httpClient.get(`http://localhost:8081/covid/get/latest`, { responseType: 'text' });
+  public getCovid(urlcasenumber:string): any {
+    return this.httpClient.get(urlcasenumber, { responseType: 'text' });
   }
 
-  public getCovidDesc(): any {
-    return this.httpClient.get(`http://localhost:8081/covid/get/desc`);
+  public getCovidDesc(urlgetCovidDes:string): any {
+    return this.httpClient.get(urlgetCovidDes);
   }
 
-  public deleteDesc(id: number): Promise<any> {
+  public deleteDesc(id: number,urldelete:string): Promise<any> {
 
     return new Promise((resolve) => {
-      return this.httpClient.delete(`http://localhost:8081/covid/delete?id=` + id).subscribe((data: any) => {
+      return this.httpClient.delete(urldelete + id).subscribe((data: any) => {
         console.log(data);
         resolve(data);
 
@@ -38,10 +38,10 @@ export class CovidApiService {
     });
   }
 
-  public addDesc(desc: string): Promise<any> {
+  public addDesc(desc: string,urlAdd:string): Promise<any> {
 
     return new Promise((resolve) => {
-      return this.httpClient.get(`http://localhost:8081/covid/add?desc=` + desc).subscribe((data: any) => {
+      return this.httpClient.get(urlAdd + desc).subscribe((data: any) => {
 
         console.log(data);
         resolve(data);
@@ -57,10 +57,10 @@ export class CovidApiService {
   }
 
 
-  public putDesc(body : any): Promise<any> {
+  public putDesc(body : any,urlputDesc:string): Promise<any> {
 
     return new Promise((resolve) => {
-      return this.httpClient.put(`http://localhost:8081/covid/put`, body).subscribe((data: any) => {
+      return this.httpClient.put(urlputDesc, body).subscribe((data: any) => {
 
         console.log(data);
         resolve(data);
@@ -75,10 +75,10 @@ export class CovidApiService {
     });
   }
 
-  public addPost(body: any) {
+  public addPost(body: any,urladdPost:string) {
     //body.description = body.desc;
     return new Promise((resolve) => {
-      return this.httpClient.post(`http://localhost:8081/covid/post`,body).subscribe((data: any) => {
+      return this.httpClient.post(urladdPost,body).subscribe((data: any) => {
 
         console.log(data);
         resolve(data);
@@ -93,10 +93,111 @@ export class CovidApiService {
     });
   }
 
-  public deleteDescription(description: string): Promise<any> {
+  public deleteDescription(description: string,urldeleteDescription:string): Promise<any> {
 
     return new Promise((resolve) => {
-      return this.httpClient.delete(`http://localhost:8081/covid/deletesoap?desc=` + description).subscribe((data: any) => {
+      return this.httpClient.delete(urldeleteDescription + description).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+
+  //<!-- Bonus Section starts  -->
+
+  //retrieve data in trx_covid_case_bonus table
+  public getCovidBonus(urlgetCovidBonus:string): any {
+    return this.httpClient.get(urlgetCovidBonus);
+  }
+
+  //add data in trx_covid_case_bonus table
+  public addBonus(desc: string, urladdBonus:string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.get(urladdBonus + desc).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+
+  //delete data in trx_covid_case_bonus table
+  public deleteDescBonus(id: number, urldeleteDescBonus:string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.delete(urldeleteDescBonus + id).subscribe((data: any) => {
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        }
+      )
+    });
+  }
+
+  //Put function, Update Record in trx_covid_cases_bonus
+  public putDescBonus(body : any,urlputDescBonus:string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.put(urlputDescBonus, body).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+
+  //Post function. adding record via POST method into trx_covid_cases_bonus
+  public addPostBonus(body: any,urladdPostBonus:string) {
+    //body.description = body.desc;
+    return new Promise((resolve) => {
+      return this.httpClient.post(urladdPostBonus,body).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+
+  //Delete record by description from trx_covid_cases_bonus table
+  public deleteDescriptionBonus(description: string,urldeleteDescriptionBonus:string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.delete(urldeleteDescriptionBonus + description).subscribe((data: any) => {
 
         console.log(data);
         resolve(data);
