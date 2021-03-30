@@ -43,7 +43,7 @@ export class CovidComponent implements OnInit {
     this.getCovidDesc();
 
     console.log("Covid Component Inited");
-    console.log("Total of Description Column Row --->" + this.descObject.length);
+    
   }
 
   getCovid(): any {
@@ -60,10 +60,12 @@ export class CovidComponent implements OnInit {
     return this.covidTotalDaily;
   }
 
+  //retrieve data in table trx_covid_case_bonus 
   getCovidDesc(): any {
     this.covidApiService.getCovidDesc().subscribe((data: any) => {
       console.log(data);
       this.covidTotalDesc = data;
+      console.log("Total of Description Column Rows --->" + this.covidTotalDesc.length);
     });
 
     return this.covidTotalDesc;
@@ -79,6 +81,7 @@ export class CovidComponent implements OnInit {
     }
   }
 
+  //delete a record from trx_covid_case
   deleteDesc() {
     console.log("covidTotalDesc length-->" + this.covidTotalDesc.length);
 
@@ -91,10 +94,9 @@ export class CovidComponent implements OnInit {
           this.getCovidDesc();
         });
     }
-
-
   }
 
+  //add function into the table
   addDesc() {
     this.covidApiService.addDesc(this.newDesc).then(
       resolve => {
@@ -125,15 +127,10 @@ export class CovidComponent implements OnInit {
 
   addPost() {
 
-    this.covidApiService.putDesc(this.postDesc).then(
+    this.covidApiService.addPost(this.postDesc).then(
       resolve => {
         this.getCovidDesc();
       });
-    
-    // if the method below being called using async way, 
-    //then the table desc wont be updated accordingly 
-    //after data added with line 128 only
-    //this.getCovidDesc();
   }
 
   //delete
@@ -143,7 +140,7 @@ export class CovidComponent implements OnInit {
       this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
     }
     else {
-      this.covidApiService.DeleteDescription(this.descObject.description).then(
+      this.covidApiService.deleteDescription(this.descObject.description).then(
         resolve => {
           this.getCovidDesc();
         });
