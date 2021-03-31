@@ -40,6 +40,7 @@ export class BonusComponent implements OnInit {
   private deleteDescBonusUrl="http://localhost:8081/covid/delete/bonus?id=";
   private addPostBonusUrl="http://localhost:8081/covid/post/bonus";
   private deleteDescriptionBonusUrl="http://localhost:8081/covid/deletesoap/bonus?desc=";
+  private deleteDuplicateDescriptionBonusUrl="http://localhost:8081/covid/deleteduplicate/bonus";
 
   ngOnInit(): void {
 
@@ -133,6 +134,7 @@ export class BonusComponent implements OnInit {
           this.getCovidBonus();
       });
     }
+
   }
 
   addPostBonus(){
@@ -156,5 +158,22 @@ export class BonusComponent implements OnInit {
     }
 
   }
+
+    //delete
+    deleteDuplicateDescriptionBonus(){
+
+      if (this.covidTotalDescBonus.length == 0) {
+        this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
+      }
+      else {
+        this.covidApiService.deleteDuplicateDescriptionBonus(this.deleteDuplicateDescriptionBonusUrl).then(
+          resolve => {
+            this.getCovidBonus();
+          });
+      }
+  
+    }
+
+  
 
 }

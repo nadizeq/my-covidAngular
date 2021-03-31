@@ -211,5 +211,25 @@ export class CovidApiService {
 
     });
   }
+
+  //delete duplicate Description
+  public deleteDuplicateDescriptionBonus(urldeleteDescriptionBonus:string): Promise<any> {
+
+    return new Promise((resolve) => {
+      return this.httpClient.delete(urldeleteDescriptionBonus).subscribe((data: any) => {
+
+        console.log(data);
+        resolve(data);
+
+      }
+        ,
+        (error) => {
+          console.log(error);
+          this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+        })
+
+    });
+  }
+  
   
 }
