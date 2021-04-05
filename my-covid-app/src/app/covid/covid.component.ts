@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CovidApiService } from '../covidapi.service';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
 import { GlobalMethods } from 'src/environments/GlobalMethods';
-import { CovidCasesDesc } from 'src/model/CovidCasesDesc';
 
 @Component({
   selector: 'app-covid',
@@ -29,7 +27,6 @@ export class CovidComponent implements OnInit {
   public postDesc: any;
 
   constructor(
-    private httpClient: HttpClient,
     public covidApiService: CovidApiService,
     private confirmationDialogService: ConfirmationDialogService
 
@@ -100,7 +97,7 @@ export class CovidComponent implements OnInit {
     }
     else {
       this.covidApiService.deleteDesc(this.descObject.id, this.deleteUrl).then(
-        resolve => {
+        () => {
           this.getCovidDesc();
         });
     }
@@ -109,7 +106,7 @@ export class CovidComponent implements OnInit {
   //add function into the table
   addDesc() {
     this.covidApiService.addDesc(this.newDesc,this.addUrl).then(
-      resolve => {
+      () => {
         this.getCovidDesc();
       });
   }
@@ -130,7 +127,7 @@ export class CovidComponent implements OnInit {
   putDesc() {
 
     this.covidApiService.putDesc(this.updateDesc,this.putDescUrl).then(
-      resolve => {
+      () => {
         this.getCovidDesc();
       });
   }
@@ -138,7 +135,7 @@ export class CovidComponent implements OnInit {
   addPost() {
 
     this.covidApiService.addPost(this.postDesc,this.addPostUrl).then(
-      resolve => {
+      () => {
         this.getCovidDesc();
       });
   }
@@ -151,7 +148,7 @@ export class CovidComponent implements OnInit {
     }
     else {
       this.covidApiService.deleteDescription(this.descObject.description,this.deleteDescriptionUrl).then(
-        resolve => {
+        () => {
           this.getCovidDesc();
         });
     }

@@ -8,31 +8,9 @@ export class GlobalMethods {
 
         if (error.status != undefined) {
             let status = error.status;
-            if (status == '404') {
-                return error.message;
-            }
-            else if (status == '500') {
 
+            return this.ErrorStatusCode(error,status);
 
-
-                if (error.error != undefined) {
-                    if (error.error.message != undefined) {
-                        let errorMessage = error.error.message;
-                        let isCovidBE = GlobalConstants.COVID_APP;
-                        let isBEMessage = errorMessage.indexOf(isCovidBE);
-
-                        if (isBEMessage) {
-                            return errorMessage;
-                        }
-                    }
-
-                    return error.error;
-                }
-
-            }
-            else if (status == '0') {
-                return error.message;
-            }
         }
 
         else if (error.message != undefined) {
@@ -43,5 +21,34 @@ export class GlobalMethods {
         }
 
     }
+    public static ErrorStatusCode(error:any,status:any){
 
+        if (status == '404') {
+            return error.message;
+        }
+        else if (status == '500') {
+
+
+
+            if (error.error != undefined) {
+                if (error.error.message != undefined) {
+                    let errorMessage = error.error.message;
+                    let isCovidBE = GlobalConstants.COVID_APP;
+                    let isBEMessage = errorMessage.indexOf(isCovidBE);
+
+                    if (isBEMessage) {
+                        return errorMessage;
+                    }
+                }
+
+                return error.error;
+            }
+
+        }
+        else if (status == '0') {
+            return error.message;
+        }
+
+    }
+    
 }

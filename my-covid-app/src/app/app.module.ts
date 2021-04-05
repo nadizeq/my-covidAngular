@@ -25,7 +25,7 @@ import { CovidDeleteComponent } from './covid-delete/covid-delete.component';
     HelloComponent,
     MiningComponent,
     BonusComponent,
-    CovidDeleteComponent
+    CovidDeleteComponent,
   ],
   imports: [
     FormsModule,

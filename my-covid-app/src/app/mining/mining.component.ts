@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-mining',
   templateUrl: './mining.component.html',
   styleUrls: ['./mining.component.css']
 })
-export class MiningComponent implements OnInit {
+export class MiningComponent {
 
   constructor(private httpClient: HttpClient,) { 
 
-  }
-
-  ngOnInit(): void {
   }
 
   mining: string = "hello";

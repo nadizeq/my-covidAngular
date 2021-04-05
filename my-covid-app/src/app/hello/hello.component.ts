@@ -24,11 +24,6 @@ export class HelloComponent implements OnInit {
   ngOnInit(): void {
     // onInit and Constructor difference
     // https://stackoverflow.com/questions/35763730/difference-between-constructor-and-ngoninit#:~:text=The%20main%20difference%20between%20constructor,how%20the%20code%20is%20structured.
-
-    // initialize by call the component method here. 
-
-    // this.getBasicHello();
-    // this.getBasicHelloSubscribe();
   }
 
   hello: string = 'hello world';
@@ -82,7 +77,7 @@ export class HelloComponent implements OnInit {
 
           // this line below will be executed only after HTTP response is completed
           this.hello = this.helloService.loggingData;
-        });;
+        });
   }
 
   public getLoggingWithoutPromiseThen() {

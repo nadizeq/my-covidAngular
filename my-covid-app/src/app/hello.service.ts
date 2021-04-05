@@ -40,7 +40,8 @@ public getLoggingWithPromise(value: string): Promise<any>
               ,
               (error) => {
                 console.log(error);
-                this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError (error));
+                let errorMessgae = GlobalMethods.getError (error);
+                this.confirmationDialogService.confirm(GlobalConstants.errorMessage, errorMessgae);
               })
 
 

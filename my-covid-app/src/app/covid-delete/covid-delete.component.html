@@ -1,1 +1,29 @@
-<p>covid-delete works!</p>
+  <!-- Delete record by description starts  -->
+
+  <br><br><br>
+  <legend style="color:black;font-weight:bold;">Section E. Delete with Condition</legend>
+
+  <form>
+    <div *ngIf="descObjectBonus != undefined" class="form-group">
+      <label>Description</label>
+      <input type="text" id="desc" [(ngModel)]="descObjectBonus.description" name="desc">
+      <p></p>
+      <input type="submit" value="Delete with condition" (click)="deleteDescriptionBonus()">
+    </div>
+  </form>
+
+  <!-- Delete record by description ends  -->
+
+  <!-- Delete duplicated record with same description starts-->
+
+  <br><br><br>
+  <legend style="color:black;font-weight:bold;">Section F. Remove Duplicate Description</legend>
+
+  <form>
+    <div *ngIf="descObjectBonus != undefined" class="form-group">
+      <p></p>
+      <input type="submit" value="Remove" (click)="deleteDuplicateDescriptionBonus()">
+    </div>
+  </form>
+
+  <!-- Delete duplicated record with same description  -->

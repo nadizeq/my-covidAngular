@@ -76,7 +76,6 @@ export class CovidApiService {
   }
 
   public addPost(body: any,urladdPost:string) {
-    //body.description = body.desc;
     return new Promise((resolve) => {
       return this.httpClient.post(urladdPost,body).subscribe((data: any) => {
 
@@ -176,7 +175,6 @@ export class CovidApiService {
 
   //Post function. adding record via POST method into trx_covid_cases_bonus
   public addPostBonus(body: any,urladdPostBonus:string) {
-    //body.description = body.desc;
     return new Promise((resolve) => {
       return this.httpClient.post(urladdPostBonus,body).subscribe((data: any) => {
 

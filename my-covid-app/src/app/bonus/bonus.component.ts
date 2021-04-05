@@ -8,7 +8,8 @@ import { CovidApiService } from '../covidapi.service';
 @Component({
   selector: 'app-bonus',
   templateUrl: './bonus.component.html',
-  styleUrls: ['./bonus.component.css']
+  styleUrls: ['./bonus.component.css'],
+  providers: [CovidApiService],
 })
 export class BonusComponent implements OnInit {
 
@@ -143,37 +144,5 @@ export class BonusComponent implements OnInit {
         this.getCovidBonus();
       });
   }
-
-  //delete
-  deleteDescriptionBonus(){
-
-    if (this.covidTotalDescBonus.length == 0) {
-      this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
-    }
-    else {
-      this.covidApiService.deleteDescriptionBonus(this.descObjectBonus.description,this.deleteDescriptionBonusUrl).then(
-        resolve => {
-          this.getCovidBonus();
-        });
-    }
-
-  }
-
-    //delete
-    deleteDuplicateDescriptionBonus(){
-
-      if (this.covidTotalDescBonus.length == 0) {
-        this.confirmationDialogService.confirm(GlobalConstants.errorMessageFE, "List is Empty");
-      }
-      else {
-        this.covidApiService.deleteDuplicateDescriptionBonus(this.deleteDuplicateDescriptionBonusUrl).then(
-          resolve => {
-            this.getCovidBonus();
-          });
-      }
-  
-    }
-
-  
 
 }
